@@ -11,6 +11,7 @@ const GuildList = () => {
         <GuildAvatar
           href="/channels/@me"
           imageSrc="https://github.com/shadcn.png"
+          name="Direct Messages"
         />
         <Separator className="my-2" />
         {mockArray.map((_, index) => (
@@ -19,6 +20,7 @@ const GuildList = () => {
             href={`/channels/${index}/69420`}
             imageSrc="https://github.com/s0rus.png"
             className="mt-0"
+            name={`Guild ${index}`}
           />
         ))}
       </ScrollArea>

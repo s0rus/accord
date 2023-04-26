@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 
 import "@fontsource/lato";
 import "~/styles/globals.css";
+import { SocketProvider } from "~/context/Socket.context";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -13,7 +14,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <SocketProvider>
+        <Component {...pageProps} />
+      </SocketProvider>
     </SessionProvider>
   );
 };

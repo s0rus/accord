@@ -1,5 +1,6 @@
 import { type GetServerSideProps, type NextPage } from "next";
-import { signOut } from "next-auth/react";
+import ConversationList from "~/components/ConversationList/ConversationList";
+// import { signOut } from "next-auth/react";
 import GuildList from "~/components/GuildList/GuildList";
 import { getServerAuthSession } from "~/server/auth";
 
@@ -7,7 +8,7 @@ const MePage: NextPage = () => {
   return (
     <main className="flex h-screen w-screen">
       <GuildList />
-      <button onClick={() => void signOut()}>logout</button>
+      <ConversationList />
     </main>
   );
 };

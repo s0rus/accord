@@ -5,13 +5,13 @@
 @layer base {
   :root {
     --background: 225 6% 13%;
-    --foreground: 260 100% 99%;
+    --foreground: 240 8% 92%;
 
     --muted: 225 7% 24%;
     --muted-foreground: 210 7% 67%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --popover: 220 8% 7%;
+    --popover-foreground: 240 8% 92%;
 
     --card: 225 6% 13%;
     --card-foreground: 260 100% 99%;
@@ -22,14 +22,17 @@
     --primary: 235 86% 65%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 225 7% 24%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 7% 18%;
+    --secondary-foreground: 214 8% 61%;
 
-    --accent: 225 7% 24%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 7% 18%;
+    --secondary-foreground: 214 8% 61%;
 
     --destructive: 0 100% 50%;
     --destructive-foreground: 210 40% 98%;
+
+    --accent: 231 6% 23%;
+    --accent-foreground: 214 8% 61%;
 
     --ring: 215 20.2% 65.1%;
 
@@ -44,5 +47,6 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: "Poppins", sans-serif;
   }
 }
