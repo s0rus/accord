@@ -78,6 +78,9 @@ export const conversationRouter = createTRPCRouter({
           conversationId: input.conversationId,
           userId: ctx.session.user.id,
         },
+        include: {
+          user: true,
+        },
       });
 
       return newMessage;
