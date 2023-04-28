@@ -1,13 +1,16 @@
-import React from "react";
-import { api } from "~/utils/api";
+import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { api, type RouterOutputs } from "~/utils/api";
+import { cn } from "~/utils/cn";
+import { AvatarWithFallback } from "../ui/avatar";
+import { buttonVariants } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
-import { type RouterOutputs } from "~/utils/api";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Skeleton } from "../ui/skeleton";
-import { useSession } from "next-auth/react";
-import { Button } from "../ui/button";
 
-const ConversationList = () => {
+interface ConversationListProps {
+  activeConversationId?: string;
+}
+
+const ConversationList = ({ activeConversationId }: ConversationListProps) => {
   const { data: session } = useSession();
   const { data } = api.conversation.getAll.useQuery();
 
@@ -22,6 +25,7 @@ const ConversationList = () => {
   return (
     <div className="min-w-[220px] overflow-hidden bg-secondary">
       <div className="flex h-screen max-h-screen w-full flex-col">
+        <button onClick={() => void signOut()}>logout</button>
         <ScrollArea className="h-full w-full ">
           <h2 className="mx-4 scroll-m-20 pt-4 text-xs font-bold uppercase tracking-tight text-secondary-foreground">
             Direct Messages
@@ -29,26 +33,31 @@ const ConversationList = () => {
           <div className="mx-2 my-2">
             {data?.map((conversation) => {
               const receiverUser = getMessageReceiver(conversation.members);
+              const isActiveConversation =
+                conversation.id === activeConversationId;
 
               if (!receiverUser) return null;
 
               return (
-                <Button
+                <Link
                   key={conversation.id}
-                  variant="ghost"
-                  className="h-12 w-full justify-start px-2"
+                  href={`/channels/@me/${conversation.id}`}
+                  className={cn(
+                    buttonVariants({
+                      variant: "ghost",
+                    }),
+                    "h-12 w-full justify-start px-2",
+                    isActiveConversation && "bg-accent text-foreground"
+                  )}
                 >
-                  <Avatar className="my-1 h-8 w-8">
-                    {/* TODO: add image fallback in case it's undefined  */}
-                    <AvatarImage src={receiverUser.image ?? undefined} />
-                    <AvatarFallback>
-                      <Skeleton className="h-12 w-12 rounded-full" />
-                    </AvatarFallback>
-                  </Avatar>
+                  <AvatarWithFallback
+                    src={receiverUser.image}
+                    className="h-8 w-8"
+                  />
                   <span className="ml-2 text-base font-semibold leading-none">
                     {receiverUser.name}
                   </span>
-                </Button>
+                </Link>
               );
             })}
           </div>

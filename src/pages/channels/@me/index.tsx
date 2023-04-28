@@ -1,6 +1,5 @@
 import { type GetServerSideProps, type NextPage } from "next";
 import ConversationList from "~/components/ConversationList/ConversationList";
-// import { signOut } from "next-auth/react";
 import GuildList from "~/components/GuildList/GuildList";
 import { getServerAuthSession } from "~/server/auth";
 

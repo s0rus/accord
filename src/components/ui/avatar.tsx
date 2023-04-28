@@ -1,8 +1,9 @@
 "use client";
 
-import * as React from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import * as React from "react";
 import { cn } from "~/utils/cn";
+import { Skeleton } from "./skeleton";
 
 const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
@@ -38,7 +39,7 @@ const AvatarFallback = React.forwardRef<
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700",
+      "flex h-full w-full items-center justify-center rounded-full bg-muted/80",
       className
     )}
     {...props}
@@ -46,4 +47,27 @@ const AvatarFallback = React.forwardRef<
 ));
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-export { Avatar, AvatarImage, AvatarFallback };
+const AvatarWithFallback = ({
+  src,
+  width = 8,
+  height = 8,
+  className,
+}: {
+  src: string | undefined | null;
+  width?: number | string;
+  height?: number | string;
+  className?: React.HTMLProps<HTMLElement>["className"];
+}) => {
+  /* TODO: add image fallback in case it's undefined  */
+
+  return (
+    <Avatar className={cn(`w-${width} h-${height}`, className)}>
+      <AvatarImage src={src ?? undefined} />
+      <AvatarFallback>
+        <Skeleton className={cn(`w-${width} h-${height}`, "rounded-full")} />
+      </AvatarFallback>
+    </Avatar>
+  );
+};
+
+export { Avatar, AvatarImage, AvatarFallback, AvatarWithFallback };

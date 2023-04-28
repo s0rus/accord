@@ -6,7 +6,7 @@ const GuildList = () => {
   const mockArray = new Array(100).fill(0);
 
   return (
-    <nav className="h-screen max-h-screen max-w-fit overflow-hidden bg-background px-3">
+    <nav className="h-screen min-w-fit overflow-hidden bg-background px-3">
       <ScrollArea className="h-full w-full" hidden>
         <GuildAvatar
           href="/channels/@me"

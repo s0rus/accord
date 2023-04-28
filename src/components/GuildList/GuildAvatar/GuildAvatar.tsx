@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
-import { Skeleton } from "~/components/ui/skeleton";
+import { AvatarWithFallback } from "~/components/ui/avatar";
 import {
   Tooltip,
   TooltipContent,
@@ -22,12 +21,12 @@ const GuildAvatar = ({ href, imageSrc, name, className }: GuildAvatarProps) => {
       <Tooltip delayDuration={0}>
         <TooltipTrigger className="block" asChild>
           <Link href={href}>
-            <Avatar className={cn("my-1 mt-4 h-12 w-12", className)}>
-              <AvatarImage src={imageSrc} />
-              <AvatarFallback>
-                <Skeleton className="h-12 w-12 rounded-full" />
-              </AvatarFallback>
-            </Avatar>
+            <AvatarWithFallback
+              src={imageSrc}
+              width={12}
+              height={12}
+              className={cn("my-1 mt-4", className)}
+            />
           </Link>
         </TooltipTrigger>
         <TooltipContent side="right" className="font-bold">
