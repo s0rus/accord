@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const useChatScroll = <T>(dependency: T) => {
+export const useChatScroll = <T>(dependency: T) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,5 +24,3 @@ const useChatScroll = <T>(dependency: T) => {
 
   return ref;
 };
-
-export { useChatScroll };

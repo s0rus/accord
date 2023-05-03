@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { chatMessageSchema } from "~/schema/chatMessage.schema";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -64,13 +65,8 @@ export const conversationRouter = createTRPCRouter({
     });
   }),
 
-  postMessage: protectedProcedure
-    .input(
-      z.object({
-        conversationId: z.string(),
-        content: z.string(),
-      })
-    )
+  createMessage: protectedProcedure
+    .input(chatMessageSchema)
     .mutation(async ({ ctx, input }) => {
       const newMessage = await ctx.prisma.message.create({
         data: {

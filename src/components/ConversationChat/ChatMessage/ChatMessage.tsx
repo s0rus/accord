@@ -6,9 +6,14 @@ import { type MessageWithUser } from "../ConversationChat";
 interface ChatMessageProps {
   message: MessageWithUser;
   previousMessage?: MessageWithUser;
+  isLastMessage?: boolean;
 }
 
-const ChatMessage = ({ message, previousMessage }: ChatMessageProps) => {
+const ChatMessage = ({
+  message,
+  previousMessage,
+  isLastMessage,
+}: ChatMessageProps) => {
   const formatMessageDate = (date: Date) => {
     const dateToFormat = dayjs(date);
 
@@ -27,12 +32,15 @@ const ChatMessage = ({ message, previousMessage }: ChatMessageProps) => {
       "minute"
     );
 
+  // TODO: Figure out better way to handle word wrapping and overflowing
+
   return (
     <div
       key={message.id}
       className={cn(
-        "flex w-full items-end",
-        !isPreviousMessageRelated && "mt-4"
+        "flex w-full",
+        !isPreviousMessageRelated && "mt-4",
+        isLastMessage && "mb-4"
       )}
     >
       <div className="mr-2 w-12 self-stretch">
@@ -40,7 +48,7 @@ const ChatMessage = ({ message, previousMessage }: ChatMessageProps) => {
           <AvatarWithFallback src={message.user.image} width={10} height={10} />
         )}
       </div>
-      <div className="w-full">
+      <div className="max-w-[150ch] break-words">
         {!isPreviousMessageRelated && (
           <div className="flex flex-row items-baseline">
             <h3 className="text-base font-semibold leading-none">
@@ -52,7 +60,7 @@ const ChatMessage = ({ message, previousMessage }: ChatMessageProps) => {
           </div>
         )}
         <div>
-          <span>{message.content}</span>
+          <p>{message.content}</p>
         </div>
       </div>
     </div>
